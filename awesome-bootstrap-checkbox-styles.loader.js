@@ -41,7 +41,7 @@ module.exports = function (content) {
                   + "@import \"~bootstrap-sass/assets/stylesheets/bootstrap/_mixins.scss\";\n"
                   + "@import \"~font-awesome/scss/_variables.scss\";\n"
                   + "@import \"~awesome-bootstrap-checkbox/scss/_variables.scss\";\n";
-                  + "@import \"./awesome-bootstrap-checkbox.config.less\";\n";
+                  + "@import \"./awesome-bootstrap-checkbox.config.scss\";\n";
 
             source = start + defaultStyles.concat(styles).map(function (style) {
                     return "@import \"~awesome-bootstrap-checkbox/scss/_" + style + ".scss\";\n"
