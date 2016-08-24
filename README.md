@@ -1,60 +1,40 @@
-font-awesome-loader
-====================
-Font awesome configuration and loading package for webpack, using font-awesome (Sass).
-
-See example usage at [shakacode/bootstrap-loader](https://github.com/shakacode/bootstrap-loader) in the [examples](https://github.com/shakacode/bootstrap-loader/tree/master/examples).
+awesome-bootstrap-checkbox-loader
+=================================
+[Awesome Bootstrap Checkout](https://github.com/flatlogic/awesome-bootstrap-checkbox) configuration and loading package for webpack, using Sass and Less.
 
 Usage
 -----
 
-To properly load font-awesome fonts, you need to configure loaders in your `webpack.config.js`. Example:
+### Complete Awesome Bootstrap Checkout
+
+To use the complete `awesome-bootstrap-checkbox` package including all styles with the default settings:
 
 ``` javascript
-module.exports = {
-  module: {
-    loaders: [
-      // the url-loader uses DataUrls.
-      // the file-loader emits files.
-      {
-        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        // Limiting the size of the woff fonts breaks font-awesome ONLY for the extract text plugin
-        // loader: "url?limit=10000"
-        loader: "url"
-      },
-      {
-        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-        loader: 'file'
-      },
-    ]
-  }
-};
-```
-
-Font awesome font urls are of the format `[dot][extension]?=[version-number]`, for example `.woff?v=4.2.0`
-
-The Regex for font types are adjusted to support these formats. Regex also support urls ending with .woff, .ttf, .eot and .svg (Used by Bootstrap).
-
-### Complete Font-Awesome
-
-To use the complete font-awesome package including all styles with the default settings:
-
-``` javascript
-require("font-awesome-loader");
+require("awesome-bootstrap-checkbox-loader");
 ```
 
 The `require` statement should be present in your application code(Entry file or any other file required in entry file) and not in webpack.config.js.
 
 ### Custom configuration
 
-You can configurate font-awesome-webpack with two configuration files:
+You can configurate `awesome-bootstrap-loader` with two configuration files depending on which (`sass` or `less`) compiler you are using:
 
-* `font-awesome.config.js`
-* `font-awesome.config.scss`
+**Sass**
+```
+awesome-bootstrap-checkbox.config.js
+awesome-bootstrap-checkbox.config.scss
+```
+
+**Less**
+```
+awesome-bootstrap-checkbox.config.js
+awesome-bootstrap-checkbox.config.less
+```
 
 Add both files *next to each other* in your project. Then:
 
 ``` javascript
-require("font-awesome-loader!./path/to/font-awesome.config.js");
+require("awesome-bootstrap-checkbox-loader!./path/to/awesome-bootstrap-checkbox.config.js");
 ```
 
 Or simple add it as entry point to your `webpack.config.js`:
@@ -62,55 +42,58 @@ Or simple add it as entry point to your `webpack.config.js`:
 ``` javascript
 module.exports = {
   entry: [
-    "font-awesome-loader!./path/to/font-awesome.config.js",
+    "awesome-bootstrap-checkbox-loader!./path/to/awesome-bootstrap-checkbox.config.js",
     "your-existing-entry-point"
   ]
 };
 ```
 
-#### `font-awesome.config.js`
+### Configuration Files
+
+##### `awesome-bootstrap-checkbox.config.js`
 
 Example:
 
 ``` javascript
 module.exports = {
+  compiler: "sass",
+  styleLoader: "style-loader!css-loader!sass-loader",
   styles: {
-    "mixins": true,
-
-    "core": true,
-    "icons": true,
-
-    "larger": true,
-    "path": true,
+    checkbox: true,
+    radio: false
   }
 };
 ```
 
-#### `font-awesome.config.scss`
+##### `font-awesome.config.scss` or `font-awesome.config.scss`
 
 Imported after Font-Awesome's default variables, but before anything else.
 
-You may customize Font-Awesome here.
+You may customize `awesome-bootstrap-checkbox` here.
 
 Example:
 
+**Sass**
 ```scss
-$fa-inverse: #eee;
-$fa-border-color: #ddd;
+$check-icon: "\f00d";
 ```
+**Less**
+```less
+@check-icon: "\f00d";
+```
+
 
 ### extract-text-webpack-plugin
 
-Configure style loader in `font-awesome.config.js`.
+Configure style loader in `awesome-bootstrap-checkbox.config.js`.
 
 Example:
 
 ``` javascript
 module.exports = {
+  compiler: "sass",
   styleLoader: require('extract-text-webpack-plugin').extract('style-loader', 'css-loader!sass-loader'),
-  styles: {
-    ...
-  }
+  styles: true
 };
 ```
 
@@ -119,4 +102,4 @@ Install `extract-text-webpack-plugin` before using this configuration.
 
 ## Credits
 
-- Based on font-awesome-webpack (gowravshekar)
+- Based on [font-awesome-loader](https://github.com/shakacode/font-awesome-loader) (shakacode)
