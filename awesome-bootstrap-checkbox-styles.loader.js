@@ -54,5 +54,5 @@ module.exports = function (content) {
             throw new Error(msg);
     }
 
-  return source
+    return source
 }
